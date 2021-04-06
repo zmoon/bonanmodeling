@@ -32,58 +32,57 @@ book_chapters:
     title: "Soil Biogeochemistry"
 
 
-# 
-# * some have a longer desciption at the top that could be included too?
-#   could come up with something for the missing ones
-# * could include page number(s) in the book that the program is mentioned? 
-# * the identifiers in the book text are like "Supplementary Program 17.1"
+# Other things that could be included:
+# * the description (found after the title, in the final part of the chapter where the SPs are introduced)
+#   - this could be difficult since there is often math, but would be nice to have!
+# * page number(s) in the book that the program is mentioned
 supplemental_programs:
   - id: sp_02_01
-    title: "Calculate and graph leaf area density profiles"
+    title: "Leaf Area Density"
   - id: sp_02_02
-    title: "Leaf angle distributions"
+    title: "Leaf Angle Distribution"
   - id: sp_05_01
-    title: "Calculate and graph thermal conductivity"
+    title: "Soil Thermal Properties"
   - id: sp_05_02
-    title: ""
+    title: "Soil Temperature"
   - id: sp_05_03
-    title: ""
+    title: "Phase Change"
   - id: sp_06_01
-    title: ""
+    title: "Flux Calculations and Obukhov Length"
   - id: sp_06_02
-    title: ""
+    title: "Roughness Length"
   - id: sp_07_01
-    title: ""
+    title: "Surface Fluxes' Diurnal Cycle"  # didn't have a title
   - id: sp_08_01
-    title: ""
+    title: "Predictor–Corrector Solution for the 𝜓-Based Richards Equation"
   - id: sp_08_02
-    title: ""
+    title: "Modified Picard Iteration for the Mixed-Form Richards Equation"
   - id: sp_09_01
-    title: ""
+    title: "Infiltration Capacity"
   - id: sp_10_01
-    title: ""
+    title: "Leaf Boundary Layer Conductance"
   - id: sp_10_02
-    title: ""
+    title: "Leaf Temperature"
   - id: sp_11_01
-    title: ""
+    title: "Farquhar et al. (1980) Photosynthesis"
   - id: sp_12_01
-    title: ""
+    title: "Leaf Gas Exchange"
   - id: sp_12_02
-    title: ""
+    title: "Leaf Gas Exchange Coupled with the Leaf Energy Budget"
   - id: sp_13_01
-    title: ""
+    title: "Plant Hydraulics"
   - id: sp_14_01
-    title: ""
+    title: "Direct Beam Extinction Coefficient"
   - id: sp_14_02
-    title: ""
+    title: "Two-Stream Approximation"
   - id: sp_14_03
-    title: ""
+    title: "Radiative Transfer"
   - id: sp_14_04
-    title: ""
+    title: "Longwave Radiation"
   - id: sp_16_01
-    title: ""
+    title: "Implicit Flux–Profile Solution"
   - id: sp_17_01
-    title: ""
+    title: "Biogeochemical Model"
   - id: sp_18_01
-    title: ""
+    title: "DAYCENT"
 
