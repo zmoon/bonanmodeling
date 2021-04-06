@@ -443,7 +443,7 @@ def create_sp_md(sp_data, matlab_src_data) -> str:
     )
 
     # Jekyll parameters (https://jekyllrb.com/docs/front-matter/; in addition to title)
-    permalink = f"/ch{sp_data['chapter_num']:02d}/{sp_data['sp_num']:02d}.html"
+    permalink = f"/{sp_data['chapter_num']:02d}/{sp_data['sp_num']:02d}.html"
     title = f"Supplemental Program {sp_data['sp_id_book']}"
     yaml_jekyll = yaml.dump(
         {
