@@ -1,4 +1,7 @@
 
+# Python venv
+venv*/
+
 # local Jekyll build files
 /docs/_site
 /docs/vendor

@@ -613,33 +613,86 @@ def run_matlab_script(sp_id, matlab_src_paths, **kwargs):
     run_matlab_scripts(matlab_src_paths_run, **kwargs)
 
 
-if __name__ == "__main__":
+def main(**kwargs):
+    import warnings
 
-    matlab_srcs = load_matlab_src_paths()
+    # Pop kwargs
+    # print(kwargs)
+    matlab = kwargs.pop("matlab")
+    write = kwargs.pop("write")
+    save_figs = kwargs.pop("save_figs")
+    if kwargs:
+        warnings.warn(f"kwargs {list(kwargs.keys())} will not be used")
 
+    # Load data
+    matlab_srcs_all = load_matlab_src_paths()
     chapter_titles, sp_data = load_data()
 
-    # > test on one main program
-    # sp_id_test = "sp_14_03"  # has aux files
+    # Validate `matlab` and determine which files to run
+    if matlab == "none":
+        matlab_srcs = {}
+    elif matlab == "all":
+        matlab_srcs = matlab_srcs_all
+    elif matlab in sp_data:  # keys `sp_02_01`, ...
+        matlab_srcs = {matlab: matlab_srcs_all[matlab]}
+    else:
+        raise ValueError("invalid `matlab`")
 
-    # run_matlab_script(sp_id_test, matlab_srcs)
+    # Run Matlab scripts?
+    if matlab_srcs:
+        run_matlab_scripts(matlab_srcs, save_figs=save_figs)
 
-    # s = create_sp_md(sp_data[sp_id_test], matlab_srcs[sp_id_test])
-    # write_sp_md(sp_id_test, s)
-    # write_sp_md(sp_id_test, s, parent_dir="ch14")
+    # Create and write chapter pages?
+    if write.lower() in ["ch", "all"]:
+        chapter_pages(chapter_titles)
 
-    # > run all matlab scripts
-    #  note `save_figs=False` is an option now
-    # run_matlab_scripts(matlab_srcs)
+    # Create and write md for program pages?
+    if write.lower() in ["sp", "all"]:
+        for sp_id, sp_data_id in sp_data.items():
+            s = create_sp_md(sp_data_id, matlab_srcs_all[sp_id])
+            # ch_id = f"ch{sp_data_id['chapter_num']:02d}"
+            # p = Path(ch_id)
+            # p.mkdir(exist_ok=True)
+            # write_sp_md(sp_id, s, parent_dir=p)
+            write_sp_md(sp_id, s)
 
-    # > create and write chapter pages
-    # chapter_pages(chapter_titles)
 
-    # > create and write all md for program pages
-    for sp_id, sp_data_id in sp_data.items():
-        ch_id = f"ch{sp_data_id['chapter_num']:02d}"
-        s = create_sp_md(sp_data_id, matlab_srcs[sp_id])
-        # p = Path(ch_id)
-        # p.mkdir(exist_ok=True)
-        # write_sp_md(sp_id, s, parent_dir=p)
-        write_sp_md(sp_id, s)
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(description="""
+Generate md pages for the bonanmodeling site.
+
+examples:
+    Run all Matlab programs and write all files:
+        python gen_md.py -m all
+    Run a certain Matlab program only:
+        python gen_md.py -m sp_14_03 -w none
+    """.strip(), formatter_class=argparse.RawTextHelpFormatter)
+    parser.add_argument("-m", "--matlab",
+        help=(
+            "Matlab programs to run. `all` to run all, or `sp_??_??` to run a certain SP. "
+            "Default: `none`."
+        ),
+        type=str,
+        default="none",
+    )
+    parser.add_argument("-w", "--write",
+        help=(
+            "Files to write. `all` to write all, `ch`, or `sp` to write chapter or SP pages only, "
+            "or `none` to skip writing. "
+            "Default: `all`."
+        ),
+        type=str,
+        default="all",
+    )
+    parser.add_argument("--dont-save-figs",
+        help="Apply this flag to skip saving the figs when running the Matlab programs.",
+        action="store_false",
+        default=True,
+        dest="save_figs",
+    )
+    args = parser.parse_args()
+
+    main(**vars(args))
+
