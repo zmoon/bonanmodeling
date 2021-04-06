@@ -42,3 +42,6 @@ gh_edit_repository: "https://github.com/zmoon/bonanmodeling"
 gh_edit_branch: master
 gh_edit_source: docs
 gh_edit_view_mode: tree
+footer_content: >
+  Book and Matlab programs by <a href="https://www.cgd.ucar.edu/staff/bonan/">Gordon Bonan</a> &copy; 2019.
+  Website by <a href="https://github.com/zmoon">@zmoon</a>.
