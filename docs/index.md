@@ -1,3 +1,6 @@
+---
+title: Home
+---
 
 This website is a browser for the Matlab programs provided with Gordon Bonan's textbook [Climate Change and Terrestrial Ecosystem Modeling](http://www.cgd.ucar.edu/staff/bonan/ecomod/index.html) (2019, Cambridge University Press).
 
