@@ -164,7 +164,7 @@ def md_text_outputs(sp_id) -> str:
     # print(files)
     assert all(suff in (".txt", ".dat") for suff in set(p.suffix for p in files))
 
-    header = "## Text"
+    header = "### Text"
 
     if files:
         s_files = []
@@ -203,7 +203,7 @@ def md_figures(sp_id) -> str:
 
     figs = list(dir_.glob("*.png"))
 
-    header = "## Figures"
+    header = "### Figures"
 
     if figs:
 
@@ -444,11 +444,12 @@ def create_sp_md(sp_data, matlab_src_data) -> str:
 
     # Jekyll parameters (https://jekyllrb.com/docs/front-matter/; in addition to title)
     permalink = f"/{sp_data['chapter_num']:02d}/{sp_data['sp_num']:02d}.html"
-    title = f"Supplemental Program {sp_data['sp_id_book']}"
+    sp_title = sp_data["sp_title"] if sp_data["sp_title"] else "??"
+    page_title = f"{sp_data['sp_id_book']} – {sp_title}"  # en-dash
     yaml_jekyll = yaml.dump(
         {
             "permalink": permalink,
-            "title": title,
+            "title": page_title,
         }
     )
 
@@ -483,7 +484,7 @@ def create_sp_md(sp_data, matlab_src_data) -> str:
     md_main_program = md_matlab_program(matlab_src_data["main_program"])
 
     if matlab_src_data["aux_programs"]:
-        md_aux_programs = "## Aux. programs\n\n" + "\n\n".join(
+        md_aux_programs = "### Aux. programs\n\n" + "\n\n".join(
             [md_matlab_program(p, main=False) for p in matlab_src_data["aux_programs"]]
         )
     else:
@@ -525,15 +526,24 @@ def create_sp_md(sp_data, matlab_src_data) -> str:
 {yaml_header}
 ---
 
-# Code
+# {sp_title}
+{{: .no_toc }}
 
-## Main program
+<details open markdown="block">
+  <summary markdown=0 class="text-delta">Table of contents</summary>
+1. ToC
+{{:toc}}
+</details>
+
+## Code
+
+### Main program
 
 {md_main_program}
 
 {md_aux_programs}
 
-# Output
+## Output
 
 {figures}
 
@@ -582,7 +592,6 @@ nav_order: {i}
 has_children: True
 ---
 
-This is a chapter page for:  
 Chapter {num} -- {real_title}
 
         """.strip()
